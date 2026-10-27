@@ -6,7 +6,7 @@ export async function onRequestPost({ request, env }) {
   }
   const headers = { "Cache-Control": "no-store" };
   try {
-    if (!env.DB || !env.TURNSTILE_SECRET_KEY || !env.CLOUDFLARE_EMAIL_API_TOKEN || !env.CLOUDFLARE_ACCOUNT_ID || !env.NOTIFICATION_EMAIL || !env.EMAIL_FROM) {
+    if (!env.DB || !env.CLOUDFLARE_EMAIL_API_TOKEN || !env.CLOUDFLARE_ACCOUNT_ID || !env.NOTIFICATION_EMAIL || !env.EMAIL_FROM) {
       return Response.json({ error: "Consultation form is not fully configured yet." }, { status: 503, headers });
     }
     const form = await request.formData();
