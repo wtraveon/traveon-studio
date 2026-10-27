@@ -28,3 +28,8 @@ footer p,footer a{color:var(--ts-muted)!important}
 @media(max-width:850px){header .nav{align-items:flex-start;padding:16px 0;flex-direction:column;gap:14px}header nav{gap:11px 17px}}
 @media(max-width:760px){header{position:relative}header .wrap,header .nav{width:calc(100% - 30px)}header nav{gap:10px 14px;padding:8px 0}header nav a{font-size:.88rem}header .brand{width:100%;margin-bottom:2px}main{padding-top:0!important}.hero{padding-top:48px!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+/* Traveon Studio brand lockup */
+header .brand{display:inline-flex;align-items:center;line-height:0;flex-shrink:0}
+header .brand img{display:block;width:clamp(210px,22vw,280px);height:auto;max-height:56px}
+@media(max-width:850px){header .brand img{width:250px;max-height:50px}}
+@media(max-width:560px){header .brand img{width:225px;max-height:46px}}
