@@ -1,38 +1,34 @@
-name: Deploy static site to GitHub Pages
+name: Validate static website
 
 on:
   push:
+    branches: [main]
+  pull_request:
     branches: [main]
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
-  build:
+  validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      - name: Configure Pages
-        uses: actions/configure-pages@v5
-      - name: Upload site artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          path: .
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Validate required site files
+        run: |
+          set -eu
+          test -f index.html
+          test -f 404.html
+          test -f assets/traveon-studio.css
+          test -f robots.txt
+          test -f sitemap.xml
+          echo "Required static website files are present."
+      - name: Check HTML files are non-empty
+        run: |
+          set -eu
+          find . -type f -name '*.html' -not -path './.git/*' -print0 | while IFS= read -r -d '' file; do
+            test -s "$file" || { echo "Empty HTML file: $file"; exit 1; }
+          done
+          echo "HTML files are non-empty."
