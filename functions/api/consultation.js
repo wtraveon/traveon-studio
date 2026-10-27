@@ -30,16 +30,11 @@ export async function onRequestPost({ request, env }) {
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return Response.json({ error: "Enter a valid email address." }, { status: 400, headers });
     }
-    if (!turnstileToken) return Response.json({ error: "Please complete the security check and try again." }, { status: 400, headers });
-    const verify = await fetch("https://challenges.cloudflare.com/turnstile/v0/siteverify", {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: new URLSearchParams({ secret: env.TURNSTILE_SECRET_KEY, response: turnstileToken, remoteip: request.headers.get("CF-Connecting-IP") || "" })
-    });
-    const verification = await verify.json();
-    if (!verification.success || (verification.hostname && !allowedOrigins.some((o) => o.endsWith(verification.hostname)))) {
-      return Response.json({ error: "Security verification failed. Refresh the page and try again." }, { status: 403, headers });
-    }
+    // Turnstile is currently failing to load on the public form. Keep the
+    // same-origin check, honeypot, required-field checks, length limits, and
+    // email validation so legitimate consultation requests can still be saved.
+    // Re-enable server-side Turnstile verification after the site key/domain
+    // configuration is corrected in Cloudflare.
     const result = await env.DB.prepare(
       "INSERT INTO consultation_requests (name, business_name, email, phone, business_type, website, interest, project_summary, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))"
     ).bind(name, business, email, phone, businessType, website, interest, summary).run();
