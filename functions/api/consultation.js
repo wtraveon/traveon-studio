@@ -45,14 +45,15 @@ export async function onRequestPost({ request, env }) {
     ).bind(name, business, email, phone, businessType, website, interest, summary).run();
     const requestId = result.meta?.last_row_id;
     const safe = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    const emailResponse = await fetch("https://api.resend.com/emails", {
+    const emailResponse = await fetch("https://api.cloudflare.com/client/v4/accounts/" + encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID) + "/email/sending/send", {
       method: "POST",
-      headers: { Authorization: "Bearer " + env.RESEND_API_KEY, "Content-Type": "application/json" },
+      headers: { Authorization: "Bearer " + env.CLOUDFLARE_EMAIL_API_TOKEN, "Content-Type": "application/json" },
       body: JSON.stringify({
-        from: env.RESEND_FROM_EMAIL || "Traveon Studio <onboarding@resend.dev>",
-        to: [env.NOTIFICATION_EMAIL],
+        from: env.EMAIL_FROM,
+        to: env.NOTIFICATION_EMAIL,
         subject: "New Traveon Studio consultation request" + (requestId ? " #" + requestId : ""),
-        html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\n/g, "<br>") + "</p>"
+        text: "New consultation request\\nName: " + name + "\\nBusiness: " + business + "\\nEmail: " + (email || "Not provided") + "\\nPhone: " + (phone || "Not provided") + "\\nBusiness type: " + businessType + "\\nWebsite: " + (website || "Not provided") + "\\nInterest: " + interest + "\\nProject summary: " + summary,
+        html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\\n/g, "<br>") + "</p>"
       })
     });
     if (!emailResponse.ok) {
