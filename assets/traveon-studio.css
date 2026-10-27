@@ -1,34 +1,30 @@
 /* Shared Traveon Studio design system */
-:root{--ts-ink:#18211f;--ts-muted:#606c67;--ts-paper:#f7f5f0;--ts-card:#fffefa;--ts-line:#dce2dc;--ts-green:#315b4c;--ts-lime:#d9edb7;--ts-dark:#172b25}
-html{scroll-behavior:smooth}
+:root{--ts-ink:#17231f;--ts-muted:#617069;--ts-paper:#f6f7f2;--ts-card:#fff;--ts-line:#dfe6df;--ts-green:#24634b;--ts-lime:#d8f36b;--ts-dark:#102b22}
+html{scroll-behavior:smooth;scroll-padding-top:100px}
 body{background:var(--ts-paper)!important;color:var(--ts-ink)!important}
-header{position:sticky;top:0;z-index:20;background:rgba(247,245,240,.94)!important;backdrop-filter:blur(12px);border-bottom:1px solid var(--ts-line)!important}
-header .wrap, header .nav{width:min(1120px,calc(100% - 40px));margin-inline:auto}
-header nav{align-items:center;gap:clamp(10px,1.8vw,22px)}
-header nav a{color:var(--ts-ink)!important;text-decoration:none;font-size:.92rem}
+header{position:sticky;top:0;z-index:20;background:rgba(246,247,242,.92)!important;backdrop-filter:blur(14px);border-bottom:1px solid var(--ts-line)!important}
+header .wrap,header .nav{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+header .nav{min-height:82px;gap:26px}
+header nav{align-items:center;gap:clamp(12px,2vw,25px)}
+header nav a{color:var(--ts-ink)!important;text-decoration:none;font-size:.91rem}
 header nav a:hover{text-decoration:underline;text-underline-offset:5px}
-header .brand{color:var(--ts-ink)!important;font-weight:850;letter-spacing:-.035em;text-decoration:none;white-space:nowrap}
+header .brand{color:var(--ts-ink)!important;font-weight:900;letter-spacing:-.055em;text-decoration:none;white-space:nowrap}
+header .brand span{color:var(--ts-muted)!important}
 main{color:var(--ts-ink)!important}
-main p,main li,main label,main small,.muted{color:var(--ts-muted)!important}
+main p,main li,main label,main small,.muted{color:var(--ts-muted)}
 h1,h2,h3,h4{color:var(--ts-ink)!important}
-.card,article, .resource-card{background:var(--ts-card)!important;color:var(--ts-ink)!important;border:1px solid var(--ts-line)!important;border-radius:18px}
+.card,article,.resource-card{background:var(--ts-card)!important;color:var(--ts-ink)!important;border:1px solid var(--ts-line)!important;border-radius:20px}
 .eyebrow{color:var(--ts-green)!important}
 a{overflow-wrap:anywhere}
 main a:not(.btn){color:var(--ts-green)}
-.btn,button.btn{background:var(--ts-dark)!important;color:#fff!important;border:1px solid var(--ts-dark)!important;border-radius:999px;padding:12px 18px;font-weight:750;cursor:pointer}
-.btn.light{background:transparent!important;color:var(--ts-dark)!important}
-input,select,textarea{background:#fffefa!important;color:var(--ts-ink)!important;border:1px solid #bdc9c0!important;border-radius:10px}
+.btn,button.btn{background:var(--ts-dark)!important;color:#fff!important;border:1px solid var(--ts-dark)!important;border-radius:999px;padding:13px 20px;font-weight:780;cursor:pointer;transition:transform .18s ease,background .18s ease}
+.btn:hover,button.btn:hover{transform:translateY(-2px);background:#234b38!important}
+.btn.light{background:transparent!important;color:var(--ts-dark)!important;border-color:#b8c8bb!important}
+input,select,textarea{background:#fff!important;color:var(--ts-ink)!important;border:1px solid #bdc9c0!important;border-radius:10px}
 input:focus,select:focus,textarea:focus{outline:3px solid #d9edb7;outline-offset:1px}
 footer{background:transparent!important;border-top:1px solid var(--ts-line)!important;color:var(--ts-muted)!important}
 footer p,footer a{color:var(--ts-muted)!important}
 :focus-visible{outline:3px solid #6e9c75;outline-offset:3px}
-@media(max-width:760px){
- header{position:relative}
- header .wrap,header .nav{width:calc(100% - 28px)}
- header nav{gap:10px 14px;padding:12px 0}
- header nav a{font-size:.86rem}
- header .brand{width:100%;margin-bottom:2px}
- main{padding-top:30px!important}
- .hero{padding-top:48px!important}
-}
+@media(max-width:850px){header .nav{align-items:flex-start;padding:16px 0;flex-direction:column;gap:14px}header nav{gap:11px 17px}}
+@media(max-width:760px){header{position:relative}header .wrap,header .nav{width:calc(100% - 30px)}header nav{gap:10px 14px;padding:8px 0}header nav a{font-size:.88rem}header .brand{width:100%;margin-bottom:2px}main{padding-top:0!important}.hero{padding-top:48px!important}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
