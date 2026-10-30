@@ -26,6 +26,7 @@ export async function onRequestPost({ request, env }) {
     await env.DB.prepare("CREATE TABLE IF NOT EXISTS consultation_rate_limits (ip_hash TEXT PRIMARY KEY, window_start INTEGER NOT NULL, request_count INTEGER NOT NULL)").run();
     const rate = await env.DB.prepare("INSERT INTO consultation_rate_limits (ip_hash, window_start, request_count) VALUES (?, ?, 1) ON CONFLICT(ip_hash) DO UPDATE SET request_count = CASE WHEN consultation_rate_limits.window_start <= ? THEN 1 ELSE consultation_rate_limits.request_count + 1 END, window_start = CASE WHEN consultation_rate_limits.window_start <= ? THEN ? ELSE consultation_rate_limits.window_start END RETURNING request_count").bind(ipHash, now, now - 900, now - 900, now).first();
     if (!rate || rate.request_count > 5) return Response.json({ error: "Too many requests. Please wait 15 minutes before trying again." }, { status: 429, headers });
+    await env.DB.prepare("DELETE FROM consultation_rate_limits WHERE window_start < ?").bind(now - 86400).run();
     const name = get("name");
     const business = get("business");
     const email = get("email");
@@ -71,6 +72,7 @@ export async function onRequestPost({ request, env }) {
     const emailResponse = await fetch("https://api.cloudflare.com/client/v4/accounts/" + encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID) + "/email/sending/send", {
       method: "POST",
       headers: { Authorization: "Bearer " + env.CLOUDFLARE_EMAIL_API_TOKEN, "Content-Type": "application/json" },
+      signal: AbortSignal.timeout(15000),
       body: JSON.stringify({
         from: env.EMAIL_FROM,
         to: env.NOTIFICATION_EMAIL,
@@ -79,12 +81,13 @@ export async function onRequestPost({ request, env }) {
         html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\n/g, "<br>") + "</p>"
       })
     });
-    if (!emailResponse.ok) {
-      await env.DB.prepare("UPDATE consultation_requests SET notification_status = 'failed' WHERE id = ?").bind(requestId).run();
-      return Response.json({ ok: true, saved: true, notification: "failed" }, { headers });
-    }
-    await env.DB.prepare("UPDATE consultation_requests SET notification_status = 'sent' WHERE id = ?").bind(requestId).run();
-    return Response.json({ ok: true, saved: true, notification: "sent" }, { headers });
+    const emailResult = await emailResponse.json().catch(() => ({ success: false }));
+    const recipient = env.NOTIFICATION_EMAIL;
+    const delivered = emailResult.success === true && emailResult.result?.delivered?.includes(recipient);
+    const queued = emailResult.success === true && emailResult.result?.queued?.includes(recipient);
+    const notificationStatus = delivered ? "sent" : queued ? "queued" : "failed";
+    await env.DB.prepare("UPDATE consultation_requests SET notification_status = ? WHERE id = ?").bind(notificationStatus, requestId).run();
+    return Response.json({ ok: true, saved: true, notification: notificationStatus }, { headers });
   } catch (error) {
     return Response.json({ error: "We couldn't submit your request right now. Please try again or call 252-360-9630." }, { status: 500, headers });
   }
