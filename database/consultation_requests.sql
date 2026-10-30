@@ -12,3 +12,10 @@ CREATE TABLE IF NOT EXISTS consultation_requests (
   created_at TEXT NOT NULL DEFAULT (datetime('now'))
 );
 CREATE INDEX IF NOT EXISTS idx_consultation_requests_created_at ON consultation_requests(created_at);
+
+-- Privacy-preserving request throttling: stores a one-way IP digest, never the raw IP.
+CREATE TABLE IF NOT EXISTS consultation_rate_limits (
+  ip_hash TEXT PRIMARY KEY,
+  window_start INTEGER NOT NULL,
+  request_count INTEGER NOT NULL
+);
