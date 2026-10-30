@@ -87,7 +87,9 @@ export async function onRequestPost({ request, env }) {
     ).bind(name, business, email, phone, businessType, website, interest, summary).run();
     const requestId = result.meta?.last_row_id;
     const safe = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
-    const emailResponse = await fetch("https://api.cloudflare.com/client/v4/accounts/" + encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID) + "/email/sending/send", {
+    let emailResult;
+    try {
+      const emailResponse = await fetch("https://api.cloudflare.com/client/v4/accounts/" + encodeURIComponent(env.CLOUDFLARE_ACCOUNT_ID) + "/email/sending/send", {
       method: "POST",
       headers: { Authorization: "Bearer " + env.CLOUDFLARE_EMAIL_API_TOKEN, "Content-Type": "application/json" },
       signal: AbortSignal.timeout(15000),
@@ -98,8 +100,11 @@ export async function onRequestPost({ request, env }) {
         text: "New consultation request\nName: " + name + "\nBusiness: " + business + "\nEmail: " + (email || "Not provided") + "\nPhone: " + (phone || "Not provided") + "\nBusiness type: " + businessType + "\nWebsite: " + (website || "Not provided") + "\nInterest: " + interest + "\nProject summary: " + summary,
         html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\n/g, "<br>") + "</p>"
       })
-    });
-    const emailResult = await emailResponse.json().catch(() => ({ success: false }));
+      });
+      emailResult = emailResponse.ok ? await emailResponse.json().catch(() => ({ success: false })) : { success: false };
+    } catch {
+      emailResult = { success: false };
+    }
     const recipient = env.NOTIFICATION_EMAIL;
     const delivered = emailResult.success === true && emailResult.result?.delivered?.includes(recipient);
     const queued = emailResult.success === true && emailResult.result?.queued?.includes(recipient);
