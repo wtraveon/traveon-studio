@@ -24,6 +24,8 @@ jobs:
           test -f assets/traveon-studio.css
           test -f robots.txt
           test -f sitemap.xml
+          test -f _headers
+          test -f scripts/validate_site.py
           echo "Required static website files are present."
       - name: Run structural and local-reference validation
         run: python3 scripts/validate_site.py
