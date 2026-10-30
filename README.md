@@ -20,7 +20,7 @@ The consultation Function requires a D1 binding named `DB` and these environment
 
 ## Consultation form security
 
-The endpoint currently applies same-origin checks, a honeypot, field validation, and length limits. Server-side Turnstile verification and edge rate limiting are not yet configured. Do not describe the form as bot-proof until a Turnstile widget and Siteverify validation are configured and tested, with a Cloudflare rate-limiting rule protecting `/api/consultation`.
+The endpoint requires a configured Turnstile secret and validates each token through Siteverify, including the expected action and hostname. It also enforces same-origin POSTs, a honeypot, field validation, request-size limits, and a D1-backed limit of five submissions per IP digest per 15-minute window. The contact page still requires the real public Turnstile site key to replace `REPLACE_WITH_TURNSTILE_SITE_KEY`; set `TURNSTILE_SECRET_KEY` as a Cloudflare Pages secret. Add a Cloudflare edge rate-limiting rule for `/api/consultation` as a second layer.
 
 ## Operational checks
 
