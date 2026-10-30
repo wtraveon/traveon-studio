@@ -11,7 +11,8 @@ export async function onRequestPost({ request, env }) {
     }
     const contentType = request.headers.get("Content-Type") || "";
     const declaredLength = Number(request.headers.get("Content-Length") || 0);
-    if (!contentType.toLowerCase().includes("multipart/form-data") || declaredLength > 12288) {
+    const actualLength = await request.clone().arrayBuffer().then((body) => body.byteLength);
+    if (!contentType.toLowerCase().includes("multipart/form-data") || declaredLength > 12288 || actualLength > 12288) {
       return Response.json({ error: "Invalid or oversized form submission." }, { status: 413, headers });
     }
     const form = await request.formData();
