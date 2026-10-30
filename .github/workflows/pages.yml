@@ -29,6 +29,10 @@ jobs:
           echo "Required static website files are present."
       - name: Run structural and local-reference validation
         run: python3 scripts/validate_site.py
+      - name: Check Python validator and Pages Function syntax
+        run: |
+          python3 -m py_compile scripts/validate_site.py
+          node --input-type=module --check < functions/api/consultation.js
       - name: Check HTML files are non-empty
         run: |
           set -eu
