@@ -37,7 +37,8 @@ export async function onRequestPost({ request, env }) {
     if (get("website_url")) return Response.json({ ok: true }, { headers }); // honeypot
     const clientIp = request.headers.get("CF-Connecting-IP");
     if (!clientIp) return Response.json({ error: "Unable to verify this request. Please try again." }, { status: 403, headers });
-    const ipDigest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(clientIp));
+    const rateKey = await crypto.subtle.importKey("raw", new TextEncoder().encode(env.TURNSTILE_SECRET_KEY), { name: "HMAC", hash: "SHA-256" }, false, ["sign"]);
+    const ipDigest = await crypto.subtle.sign("HMAC", rateKey, new TextEncoder().encode(clientIp));
     const ipHash = Array.from(new Uint8Array(ipDigest), (byte) => byte.toString(16).padStart(2, "0")).join("");
     const now = Math.floor(Date.now() / 1000);
     await env.DB.prepare("CREATE TABLE IF NOT EXISTS consultation_rate_limits (ip_hash TEXT PRIMARY KEY, window_start INTEGER NOT NULL, request_count INTEGER NOT NULL)").run();
