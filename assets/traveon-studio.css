@@ -33,3 +33,12 @@ header .brand{display:inline-flex;align-items:center;line-height:0;flex-shrink:0
 header .brand img{display:block;width:clamp(210px,22vw,280px);height:auto;max-height:56px}
 @media(max-width:850px){header .brand img{width:250px;max-height:50px}}
 @media(max-width:560px){header .brand img{width:225px;max-height:46px}}
+
+/* Shared site-wide refinements */
+:root{--ts-ink:#15231d;--ts-muted:#66756c;--ts-paper:#f7f8f4;--ts-card:#fff;--ts-line:#e1e8df;--ts-green:#286548;--ts-lime:#d9f36c;--ts-dark:#10291f}
+body{font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;-webkit-font-smoothing:antialiased}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #8baa42!important;outline-offset:4px}
+main{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+main>h1{letter-spacing:-.065em}main .card{border-radius:20px;box-shadow:0 12px 34px rgba(16,41,31,.055)}
+footer{border-color:var(--ts-line)!important}footer a{color:var(--ts-green)}
+@media(max-width:760px){main{width:calc(100% - 30px)}}
