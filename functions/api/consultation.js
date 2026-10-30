@@ -20,7 +20,6 @@ export async function onRequestPost({ request, env }) {
     const website = get("website");
     const interest = get("interest");
     const summary = get("project_summary");
-    const turnstileToken = get("cf-turnstile-response");
     if (!name || !business || !businessType || !interest || !summary || (!email && !phone)) {
       return Response.json({ error: "Complete the required fields and provide an email address or phone number." }, { status: 400, headers });
     }
@@ -30,11 +29,9 @@ export async function onRequestPost({ request, env }) {
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
       return Response.json({ error: "Enter a valid email address." }, { status: 400, headers });
     }
-    // Turnstile is currently failing to load on the public form. Keep the
-    // same-origin check, honeypot, required-field checks, length limits, and
-    // email validation so legitimate consultation requests can still be saved.
-    // Re-enable server-side Turnstile verification after the site key/domain
-    // configuration is corrected in Cloudflare.
+    // This endpoint currently relies on same-origin checks, a honeypot, and
+    // strict field validation. Add verified Turnstile enforcement only after
+    // the production site key and secret are configured in Cloudflare.
     const result = await env.DB.prepare(
       "INSERT INTO consultation_requests (name, business_name, email, phone, business_type, website, interest, project_summary, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))"
     ).bind(name, business, email, phone, businessType, website, interest, summary).run();
