@@ -45,7 +45,7 @@ for page in PAGES:
         if not candidate.is_file(): errors.append(f"{rel}: broken local path {href}")
         elif u.fragment and candidate.suffix==".html":
             target_text=candidate.read_text(encoding="utf-8")
-            if not re.search(r"""\\bid=["']"""+re.escape(u.fragment)+r"""["']""",target_text):
+            if not re.search(r"""\bid=["']"""+re.escape(u.fragment)+r"""["']""",target_text):
                 errors.append(f"{rel}: missing anchor {href}")
 sitemap=ROOT/"sitemap.xml"
 if not sitemap.is_file(): errors.append("sitemap.xml is missing")
@@ -57,5 +57,5 @@ else:
         route="/" if rel=="index.html" else "/"+rel.removesuffix("index.html")
         if "https://traveonstudio.com"+route not in xml: errors.append(f"sitemap.xml: missing {route}")
 if errors:
-    print("\\n".join("ERROR: "+e for e in errors)); sys.exit(1)
+    print("\n".join("ERROR: "+e for e in errors)); sys.exit(1)
 print(f"Site integrity passed: {len(PAGES)} HTML pages, local links, anchors, metadata, image alt attributes, and sitemap routes.")
