@@ -11,11 +11,28 @@ export async function onRequestPost({ request, env }) {
     }
     const contentType = request.headers.get("Content-Type") || "";
     const declaredLength = Number(request.headers.get("Content-Length") || 0);
-    const actualLength = await request.clone().arrayBuffer().then((body) => body.byteLength);
-    if (!contentType.toLowerCase().includes("multipart/form-data") || declaredLength > 12288 || actualLength > 12288) {
+    if (!contentType.toLowerCase().includes("multipart/form-data") || declaredLength > 12288 || !request.body) {
       return Response.json({ error: "Invalid or oversized form submission." }, { status: 413, headers });
     }
-    const form = await request.formData();
+    const reader = request.body.getReader();
+    const chunks = [];
+    let actualLength = 0;
+    while (true) {
+      const part = await reader.read();
+      if (part.done) break;
+      actualLength += part.value.byteLength;
+      if (actualLength > 12288) {
+        await reader.cancel();
+        return Response.json({ error: "Invalid or oversized form submission." }, { status: 413, headers });
+      }
+      chunks.push(part.value);
+    }
+    const boundedRequest = new Request(request.url, {
+      method: "POST",
+      headers: request.headers,
+      body: new Blob(chunks)
+    });
+    const form = await boundedRequest.formData();
     const get = (key) => String(form.get(key) || "").trim();
     if (get("website_url")) return Response.json({ ok: true }, { headers }); // honeypot
     const clientIp = request.headers.get("CF-Connecting-IP");
