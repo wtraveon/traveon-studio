@@ -16,7 +16,7 @@ Source repository for [traveonstudio.com](https://traveonstudio.com/).
 
 The site is structured for Cloudflare Pages, including the `functions/` directory. Production deployment, custom-domain routing, D1 bindings, and environment variables are managed in the Cloudflare dashboard or the configured Cloudflare deployment pipeline. GitHub repository commits alone do not verify a successful production deployment.
 
-The consultation Function requires a D1 binding named `DB` and these environment variables: `CLOUDFLARE_EMAIL_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NOTIFICATION_EMAIL`, and `EMAIL_FROM`. Configure them in Cloudflare Pages for both the intended production/preview environments. Never commit secret values.
+The consultation Function requires a D1 binding named `DB` and these environment variables: `CLOUDFLARE_EMAIL_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID`, `NOTIFICATION_EMAIL`, `EMAIL_FROM`, and `TURNSTILE_SECRET_KEY`. Configure them in Cloudflare Pages for both the intended production/preview environments. Never commit secret values.
 
 ## Consultation form security
 
