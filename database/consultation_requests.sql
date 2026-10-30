@@ -19,3 +19,4 @@ CREATE TABLE IF NOT EXISTS consultation_rate_limits (
   window_start INTEGER NOT NULL,
   request_count INTEGER NOT NULL
 );
+CREATE INDEX IF NOT EXISTS idx_consultation_rate_limits_window_start ON consultation_rate_limits(window_start);
