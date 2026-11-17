@@ -1,11 +1,13 @@
-name: Validate static website
+name: Website quality and production checks
 
 on:
   push:
-    branches: [main]
+    branches: [main, "feat/**", "fix/**"]
   pull_request:
     branches: [main]
   workflow_dispatch:
+  schedule:
+    - cron: "23 13 * * 1"
 
 permissions:
   contents: read
@@ -13,30 +15,46 @@ permissions:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 8
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
       - name: Validate required site files
         run: |
           set -eu
-          test -f index.html
-          test -f 404.html
-          test -f assets/traveon-studio.css
-          test -f robots.txt
-          test -f sitemap.xml
-          test -f _headers
-          test -f scripts/validate_site.py
-          echo "Required static website files are present."
+          for file in index.html 404.html assets/traveon-studio.css robots.txt sitemap.xml _headers scripts/validate_site.py scripts/production-smoke.mjs; do
+            test -f "$file" || { echo "Missing required file: $file"; exit 1; }
+          done
       - name: Run structural and local-reference validation
         run: python3 scripts/validate_site.py
       - name: Check Python validator and Pages Function syntax
         run: |
           python3 -m py_compile scripts/validate_site.py
           node --input-type=module --check < functions/api/consultation.js
-      - name: Check HTML files are non-empty
+      - name: Check public HTML files are non-empty
         run: |
           set -eu
           find . -type f -name '*.html' -not -path './.git/*' -print0 | while IFS= read -r -d '' file; do
             test -s "$file" || { echo "Empty HTML file: $file"; exit 1; }
           done
-          echo "HTML files are non-empty."
+
+  production-smoke:
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    needs: validate
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - name: Check production pages, metadata, security headers, and public form configuration
+        env:
+          SITE_BASE_URL: https://traveonstudio.com
+        run: node scripts/production-smoke.mjs

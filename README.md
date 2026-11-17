@@ -25,3 +25,28 @@ The endpoint requires a configured Turnstile secret and validates each token thr
 ## Operational checks
 
 After deployment, verify the public pages, the consultation submission path, D1 record creation, and notification delivery using an approved test inquiry. Review Cloudflare logs and the Actions tab after changes.
+
+
+## Automated release checks
+
+GitHub Actions runs structural checks and the consultation Function syntax check on pushes and pull requests. A scheduled/manual production smoke check verifies the public site independently of a GitHub Pages build. The smoke check does not submit a real customer form, create database records, or send notification emails.
+
+### Required Cloudflare Pages configuration
+
+Set these values in the Cloudflare Pages project (production and preview as appropriate):
+
+- D1 database binding: `DB` (bound to the production consultation database)
+- `CLOUDFLARE_ACCOUNT_ID`
+- `CLOUDFLARE_EMAIL_API_TOKEN` (secret with the required Email Sending permission)
+- `NOTIFICATION_EMAIL`
+- `EMAIL_FROM` (a verified sender for Cloudflare Email Sending)
+- `TURNSTILE_SECRET_KEY` (secret)
+- `TURNSTILE_SITE_KEY` (public site key used by the contact page)
+
+Replace the contact page's public Turnstile placeholder only with the real site key configured for `traveonstudio.com`. Never commit the secret key or API token. The production smoke check intentionally reports a configuration warning when the public site key is still a placeholder; it does not pretend the form is ready.
+
+After configuration, submit one approved test inquiry and confirm all three outcomes: a success response in the browser, a new D1 record, and a notification email received at the configured inbox. A green static or smoke workflow alone does not prove real delivery.
+
+### Workbook checkout
+
+The workbook page is informational only until a payment provider and fulfillment process are configured. Do not present a purchase button or collect payment until the real checkout URL, price, delivery file, tax/refund terms, and support process have been confirmed.
