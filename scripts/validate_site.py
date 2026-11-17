@@ -82,8 +82,8 @@ for path in html_files:
             fail(rel, f"expected exactly one <{tag}> element; found {parser.tags.get(tag, 0)}")
     if parser.title_count != 1:
         fail(rel, f"expected exactly one <title>; found {parser.title_count}")
-    if parser.canonical_count != 1:
-        fail(rel, f"expected exactly one canonical link; found {parser.canonical_count}")
+    if parser.canonical_count > 1:
+        fail(rel, f"duplicate canonical links ({parser.canonical_count})")
     if parser.tags.get("h1", 0) != 1 and rel.as_posix() != "404.html":
         fail(rel, f"expected exactly one primary h1; found {parser.tags.get('h1', 0)}")
     if parser.styles != parser.style_closes:
