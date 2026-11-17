@@ -39,10 +39,16 @@ class SiteParser(HTMLParser):
                     self.links.append(attrs["href"])
         elif tag == "title":
             self.title_count += 1
-        if tag in ("a", "img", "script", "source"):
-            key = "href" if tag == "a" else "src"
+        if tag in ("a", "img", "script", "source", "iframe", "video", "audio"):
+            key = "href" if tag in ("a", "link") else "src"
             if attrs.get(key):
                 self.links.append(attrs[key])
+        if tag == "img" and "alt" not in attrs:
+            fail(self.path, "image is missing an alt attribute")
+        if tag == "a" and attrs.get("target") == "_blank":
+            rel = set((attrs.get("rel") or "").lower().split())
+            if "noopener" not in rel and "noreferrer" not in rel:
+                fail(self.path, "link opening a new tab must include rel=noopener or rel=noreferrer")
         if tag == "link" and attrs.get("rel", "").lower() == "canonical":
             self.canonical_count += 1
 
@@ -76,8 +82,10 @@ for path in html_files:
             fail(rel, f"expected exactly one <{tag}> element; found {parser.tags.get(tag, 0)}")
     if parser.title_count != 1:
         fail(rel, f"expected exactly one <title>; found {parser.title_count}")
-    if parser.canonical_count > 1:
-        fail(rel, f"duplicate canonical links ({parser.canonical_count})")
+    if parser.canonical_count != 1:
+        fail(rel, f"expected exactly one canonical link; found {parser.canonical_count}")
+    if parser.tags.get("h1", 0) != 1 and rel.as_posix() != "404.html":
+        fail(rel, f"expected exactly one primary h1; found {parser.tags.get('h1', 0)}")
     if parser.styles != parser.style_closes:
         fail(rel, f"unbalanced style elements: {parser.styles} opening, {parser.style_closes} closing")
     if parser.scripts != parser.script_closes:
@@ -86,7 +94,7 @@ for path in html_files:
         fail(rel, "stylesheet link is nested inside a <style> element")
 
     for url in parser.links:
-        if url.startswith(("#", "//", "http://", "https://", "mailto:", "tel:", "data:", "javascript:")):
+        if url.startswith(("#", "//", "http://", "https://", "mailto:", "tel:", "sms:", "data:", "javascript:")):
             continue
         target = url.split("#", 1)[0].split("?", 1)[0]
         if not target:
