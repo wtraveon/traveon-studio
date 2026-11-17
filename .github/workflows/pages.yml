@@ -26,14 +26,9 @@ jobs:
       - name: Validate required site files
         run: |
           set -eu
-          test -f index.html
-          test -f 404.html
-          test -f assets/traveon-studio.css
-          test -f robots.txt
-          test -f sitemap.xml
-          test -f _headers
-          test -f scripts/validate_site.py
-          test -f scripts/production-smoke.mjs
+          for file in index.html 404.html assets/traveon-studio.css robots.txt sitemap.xml _headers scripts/validate_site.py scripts/production-smoke.mjs; do
+            test -f "$file" || { echo "Missing required file: $file"; exit 1; }
+          done
       - name: Run structural and local-reference validation
         run: python3 scripts/validate_site.py
       - name: Check Python validator and Pages Function syntax
