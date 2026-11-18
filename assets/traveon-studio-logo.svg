@@ -1,10 +1,15 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 112" role="img" aria-labelledby="title desc">
-<title id="title">Traveon Studio</title><desc id="desc">A geometric T mark with a lavender accent, alongside the Traveon Studio wordmark.</desc>
-<rect x="3" y="5" width="102" height="102" rx="27" fill="#21142F"/>
-<path d="M27 32H81V44H61V80H47V44H27Z" fill="#FAF8FD"/>
-<path d="M67 20L88 20L88 41Z" fill="#DCCBFA"/>
-<path d="M69 51L89 71L89 88L69 68Z" fill="#7544C8"/>
-<text x="127" y="57" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="800" letter-spacing="-1.7" fill="#21142F">TRAVEON</text>
-<text x="130" y="88" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" letter-spacing="7" fill="#7544C8">STUDIO</text>
-<path d="M267 79H338" stroke="#DCCBFA" stroke-width="5" stroke-linecap="round"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 120" role="img" aria-labelledby="title desc">
+<title id="title">Traveon Studio</title>
+<desc id="desc">TS monogram and Traveon Studio web design and development wordmark in purple.</desc>
+<g transform="translate(4 7)">
+  <rect x="2" y="2" width="104" height="104" rx="27" fill="#21142F"/>
+  <path d="M22 27h66v15H64v48H47V42H22z" fill="#FAF8FD"/>
+  <path d="M83 43c-5-7-13-11-24-11-17 0-28 10-28 24 0 11 8 18 23 22l11 3c7 2 10 4 10 8 0 5-5 8-13 8-10 0-18-4-25-11L25 98c9 10 22 15 38 15 20 0 34-10 34-26 0-12-8-19-24-23l-12-3c-6-2-9-4-9-8s4-7 11-7c7 0 13 3 18 8z" fill="#7544C8" opacity=".98"/>
+  <path d="M16 76c20-40 64-62 96-43" fill="none" stroke="#DCCBFA" stroke-width="4" stroke-linecap="round"/>
+</g>
+<path d="M132 22v76" stroke="#DCCBFA" stroke-width="2"/>
+<text x="158" y="64" font-family="Inter,Arial,sans-serif" font-size="43" font-weight="850" letter-spacing="-1.8" fill="#21142F">TRAVEON</text>
+<text x="394" y="64" font-family="Inter,Arial,sans-serif" font-size="43" font-weight="850" letter-spacing="-1.8" fill="#7544C8">STUDIO</text>
+<path d="M160 82h34" stroke="#7544C8" stroke-width="3" stroke-linecap="round"/>
+<text x="205" y="88" font-family="Inter,Arial,sans-serif" font-size="12" font-weight="700" letter-spacing="3.2" fill="#7544C8">WEB DESIGN &amp; DEVELOPMENT</text>
 </svg>
