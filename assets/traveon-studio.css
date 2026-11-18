@@ -252,3 +252,10 @@ main>h1,main#main>h1{
   opacity:1!important;
   text-shadow:none!important;
 }
+
+
+/* Compact TS-only header mark */
+header .brand{display:inline-flex!important;align-items:center!important;justify-content:center!important;flex:0 0 auto!important}
+header .brand img{display:block!important;width:62px!important;height:62px!important;max-width:62px!important;max-height:62px!important;object-fit:contain!important}
+@media(max-width:850px){header .brand img{width:58px!important;height:58px!important;max-width:58px!important;max-height:58px!important}}
+@media(max-width:560px){header .brand img{width:52px!important;height:52px!important;max-width:52px!important;max-height:52px!important}}
