@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#21142f">
+<meta name="description" content="Secure USD checkout for Traveon Studio website project deposits and the Business & Productivity Workbook.">
+<title>Secure Checkout | Traveon Studio</title>
+<link rel="canonical" href="https://traveonstudio.com/checkout/">
+<link rel="icon" type="image/svg+xml" href="/assets/traveon-studio-favicon.svg">
+<link rel="stylesheet" href="/assets/traveon-studio.css">
+<style>
+.checkout-wrap{max-width:860px;margin:54px auto 90px;padding:0 24px}.checkout-panel{background:#fff;border:1px solid #e8e1f0;border-radius:20px;padding:clamp(22px,5vw,42px);box-shadow:0 18px 50px rgba(33,20,47,.07)}.checkout-choice{display:flex;gap:14px;align-items:flex-start;padding:18px;border:1px solid #e6deef;border-radius:14px;margin:12px 0;cursor:pointer}.checkout-choice:has(input:checked){border-color:#7544c8;background:#faf7ff}.checkout-choice input{margin-top:6px;accent-color:#7544c8}.checkout-choice strong{display:block}.checkout-price{margin-left:auto;font-weight:800;white-space:nowrap}.checkout-note{background:#faf7ff;border-left:3px solid #7544c8;padding:14px 16px;border-radius:8px}.paypal-area{margin-top:24px;min-height:54px}.paypal-area paypal-button{display:block;width:100%;min-height:48px}.status{min-height:28px;margin-top:14px}.muted-small{font-size:.9rem;color:#665d70}.checkout-choice:focus-within{outline:2px solid #7544c8;outline-offset:3px}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header><div class="wrap nav"><a class="brand" href="/" aria-label="Traveon Studio home"><img src="/assets/traveon-studio-logo.svg" alt="Traveon Studio" width="280" height="56"></a><nav aria-label="Main navigation"><a href="/services/">Services</a><a href="/work/">Work</a><a href="/pricing/">Pricing</a><a href="/about/">About</a><a class="btn" href="/contact/">Free consultation ↗</a></nav></div></header>
+<main id="main" class="checkout-wrap">
+<div class="eyebrow">Secure payment</div>
+<h1>Complete your Traveon Studio purchase.</h1>
+<p class="muted">Pay securely through PayPal. All listed prices are in US dollars (USD). Your final payment details are shown in PayPal before you approve.</p>
+<section class="checkout-panel" aria-labelledby="checkout-title">
+<h2 id="checkout-title">Choose your payment</h2>
+<label class="checkout-choice"><input type="radio" name="product" value="website-deposit" checked><span><strong>Website package — project deposit</strong><span class="muted-small">50% deposit to begin the $600 website package. The remaining $300 is due after final approval and before launch.</span></span><span class="checkout-price">$300 USD</span></label>
+<label class="checkout-choice"><input type="radio" name="product" value="business-workbook"><span><strong>Business &amp; Productivity Workbook</strong><span class="muted-small">One-time purchase.</span></span><span class="checkout-price">$200 USD</span></label>
+<div class="checkout-note"><strong>Website care — $99/month</strong><p class="muted-small">Monthly care is a recurring service. Subscription checkout will be added after the PayPal subscription plan is configured. <a href="/contact/">Contact Traveon Studio</a> to arrange website care.</p></div>
+<div class="paypal-area"><paypal-button hidden></paypal-button></div>
+<p id="payment-status" class="status muted" role="status" aria-live="polite">Connecting to PayPal…</p>
+<p class="muted-small">Payments are processed by PayPal. Traveon Studio never receives or stores your PayPal password or card number. If you need help, <a href="/contact/">contact us</a>.</p>
+</section>
+</main>
+<footer><div class="wrap foot"><div><a class="brand" href="/"><img src="/assets/traveon-studio-logo.svg" alt="Traveon Studio" width="230" height="46"></a><p class="small">Professional websites for businesses in the United States and worldwide.</p></div><div class="footlinks"><a href="/services/">Services</a><a href="/pricing/">Pricing</a><a href="/privacy/">Privacy</a><a href="/contact/">Contact</a></div><div class="footer-bottom"><p class="small">© 2026 Traveon Studio. All rights reserved.</p></div></div></footer>
+<script>
+(() => {
+ const status=document.getElementById("payment-status");
+ const button=document.querySelector("paypal-button");
+ const selectedProduct=()=>document.querySelector('input[name="product"]:checked')?.value;
+ const show=(message)=>{status.textContent=message;};
+ async function post(url,payload){
+  const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
+  const data=await response.json().catch(()=>({}));
+  if(!response.ok)throw new Error(data.error||"Payment request failed.");
+  return data;
+ }
+ async function createOrder(){
+  const result=await post("/api/paypal/create-order",{productId:selectedProduct()});
+  return {orderId:result.id};
+ }
+ async function captureOrder(orderId){
+  return post("/api/paypal/capture-order",{orderId});
+ }
+ async function initialize(){
+  try{
+   const configResponse=await fetch("/api/paypal/config",{headers:{"Accept":"application/json"},cache:"no-store"});
+   const config=await configResponse.json().catch(()=>({}));
+   if(!configResponse.ok||!config.enabled)throw new Error(config.message||"PayPal checkout is not configured yet. Please contact Traveon Studio.");
+   const sdk=document.createElement("script");
+   sdk.src=(config.mode==="live"?"https://www.paypal.com/web-sdk/v6/core":"https://www.sandbox.paypal.com/web-sdk/v6/core");
+   sdk.async=true;
+   sdk.onload=async()=>{
+    try{
+     const instance=await window.paypal.createInstance({clientId:config.clientId,components:["paypal-payments"],pageType:"checkout",locale:"en-US"});
+     const eligibility=await instance.findEligibleMethods({currencyCode:"USD"});
+     if(!eligibility.isEligible("paypal"))throw new Error("PayPal checkout is not currently available for this browser or account.");
+     const session=instance.createPayPalOneTimePaymentSession({
+      async onApprove(data){
+       show("Verifying your payment securely…");
+       try{
+        const result=await captureOrder(data.orderId);
+        if(result.status!=="COMPLETED")throw new Error("PayPal has not confirmed the payment.");
+        show("Payment confirmed. Thank you! Traveon Studio has received your payment confirmation.");
+        button.setAttribute("hidden","");
+       }catch(error){show(error.message||"We could not verify the payment. Please contact Traveon Studio before trying again.");}
+      },
+      onCancel(){show("Payment cancelled. No payment was confirmed.");},
+      onError(error){show(error?.message||"PayPal reported a payment error. Please try again.");}
+     });
+     button.removeAttribute("hidden");
+     button.addEventListener("click",async()=>{
+      button.setAttribute("disabled","");
+      show("Opening secure PayPal checkout…");
+      try{await session.start({presentationMode:"auto"},createOrder());}
+      catch(error){show(error.message||"Unable to start PayPal checkout. Please try again.");}
+      finally{button.removeAttribute("disabled");}
+     });
+     show("Choose your purchase and select PayPal to continue.");
+    }catch(error){show(error.message||"Unable to initialize PayPal checkout.");}
+   };
+   sdk.onerror=()=>show("PayPal could not load. Please refresh the page or contact Traveon Studio.");
+   document.head.appendChild(sdk);
+  }catch(error){show(error.message||"PayPal checkout is temporarily unavailable.");}
+ }
+ initialize();
+})();
+</script>
+</body></html>
