@@ -87,3 +87,20 @@ footer{padding:35px 0}
  main .card{padding:20px}
 }
 
+/* Resources landing page */
+main#main>.eyebrow{display:block;margin-top:34px}
+main#main>h1{font-size:clamp(2.25rem,4.5vw,3.4rem);line-height:1.08;letter-spacing:-.06em;max-width:850px;margin:16px 0}
+main#main>p.muted{font-size:1.08rem;max-width:760px;margin:0 0 26px}
+main#main>section.card{display:block;padding:28px 30px;margin:0 0 22px;border-radius:22px}
+main#main>section.card h2{font-size:1.65rem;line-height:1.2;letter-spacing:-.04em;margin:0 0 16px}
+main#main>section.card .price{font-size:1.35rem;line-height:1.3;font-weight:850;letter-spacing:-.025em;margin:0 0 12px;color:var(--ts-ink)}
+main#main>section.card p{margin:0 0 16px;line-height:1.7}
+main#main>section.card .btn{display:inline-flex;margin-top:0}
+main#main>h2{font-size:clamp(1.5rem,3vw,2rem);line-height:1.2;letter-spacing:-.04em;margin:20px 0 10px}
+main#main>h2+p{max-width:780px;margin:0 0 38px;line-height:1.75}
+@media(max-width:640px){
+ main#main>.eyebrow{margin-top:24px}
+ main#main>section.card{padding:21px;margin-bottom:20px}
+ main#main>section.card h2{font-size:1.4rem}
+}
+
