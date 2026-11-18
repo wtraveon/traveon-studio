@@ -102,7 +102,7 @@ export async function onRequestPost({ request, env }) {
         from: env.EMAIL_FROM,
         to: env.NOTIFICATION_EMAIL,
         subject: "New Traveon Studio consultation request" + (requestId ? " #" + requestId : ""),
-        text: "New consultation request\nName: " + name + "\nBusiness: " + business + "\nEmail: " + (email || "Not provided") + "\nPhone: " + (phone || "Not provided") + "\nBusiness type: " + businessType + "\nWebsite: " + (website || "Not provided") + "\nInterest: " + interest + "\nProject summary: " + summary,
+        text: "New consultation request\nName: " + name + "\nBusiness: " + business + "\nEmail: " + (email || "Not provided") + "\nPhone: " + (phone || "Not provided") + "\nCountry: " + country + "\nTime zone: " + (timeZone || "Not provided") + "\nBusiness type: " + businessType + "\nWebsite: " + (website || "Not provided") + "\nInterest: " + interest + "\nProject summary: " + summary,
         html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Country:</b> " + safe(country) + "</p><p><b>Time zone:</b> " + safe(timeZone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\n/g, "<br>") + "</p>"
       })
       });
