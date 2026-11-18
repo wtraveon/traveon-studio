@@ -237,3 +237,18 @@ main{padding-bottom:24px!important}
   footer .footer-bottom{grid-column:auto!important;display:block!important;padding-top:18px!important}
   footer .footer-bottom p+p{margin-top:8px!important}
 }
+
+
+/* Final heading contrast correction across all pages */
+main h1,main h2,main h3,main h4,
+main#main>h1,main#main>h2,main#main>h3,
+main .hero h1,main .hero h2{
+  color:#21142F!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#21142F!important;
+}
+main>h1,main#main>h1{
+  color:#21142F!important;
+  opacity:1!important;
+  text-shadow:none!important;
+}
