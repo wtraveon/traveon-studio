@@ -42,3 +42,48 @@ main{width:min(1160px,calc(100% - 48px));margin-inline:auto}
 main>h1{letter-spacing:-.065em}main .card{border-radius:20px;box-shadow:0 12px 34px rgba(16,41,31,.055)}
 footer{border-color:var(--ts-line)!important}footer a{color:var(--ts-green)}
 @media(max-width:760px){main{width:calc(100% - 30px)}}
+
+/* Shared layout foundation for standalone pages */
+*{box-sizing:border-box}
+body{margin:0;font:16px/1.7 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+img{max-width:100%;height:auto}
+.wrap{width:min(1160px,calc(100% - 48px));margin-inline:auto}
+.skip{position:absolute;left:-9999px;top:8px;z-index:60;background:#fff;padding:10px 14px;border-radius:8px}
+.skip:focus{left:12px}
+header .nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap}
+header nav{display:flex;align-items:center;justify-content:flex-end;flex-wrap:wrap}
+main{padding:0!important}
+main .hero{padding:52px 0 30px;background:transparent;overflow:visible}
+main .hero h1{font-size:clamp(2.1rem,4vw,3.1rem);line-height:1.12;letter-spacing:-.055em;max-width:900px;margin:16px 0}
+main .hero>.muted{max-width:760px;font-size:1.05rem}
+main .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin-top:20px}
+main .card{padding:24px}
+main .card h2{font-size:1.55rem;line-height:1.2;letter-spacing:-.035em;margin:0 0 18px}
+main .card p{margin:0 0 16px}
+main .card p:last-child{margin-bottom:0}
+main section.card{margin-bottom:34px}
+main .notice{padding:12px 15px;background:#edf3e8;border-radius:12px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.field{display:flex;flex-direction:column;gap:7px;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-weight:700;color:var(--ts-ink)}
+.field input,.field select,.field textarea{width:100%;min-height:48px;padding:11px 13px;font:inherit}
+.field textarea{min-height:140px;resize:vertical}
+form .btn{margin-top:10px}
+form .btn:disabled{opacity:.65;cursor:wait;transform:none}
+#form-status{min-height:1.5em;margin:12px 0}
+.cf-turnstile{margin:18px 0}
+footer{padding:35px 0}
+@media(max-width:850px){
+ header .nav{align-items:flex-start;flex-direction:column;gap:14px;padding:14px 0}
+ header nav{justify-content:flex-start;gap:10px 16px}
+}
+@media(max-width:640px){
+ .wrap,header .wrap,header .nav{width:calc(100% - 30px)}
+ main .hero{padding:38px 0 24px}
+ main .hero h1{font-size:clamp(1.9rem,8vw,2.5rem)}
+ main .grid,.formgrid{grid-template-columns:1fr}
+ .field.full{grid-column:auto}
+ main .card{padding:20px}
+}
+
