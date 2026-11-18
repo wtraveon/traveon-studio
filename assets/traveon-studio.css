@@ -259,3 +259,48 @@ header .brand{display:inline-flex!important;align-items:center!important;justify
 header .brand img{display:block!important;width:62px!important;height:62px!important;max-width:62px!important;max-height:62px!important;object-fit:contain!important}
 @media(max-width:850px){header .brand img{width:58px!important;height:58px!important;max-width:58px!important;max-height:58px!important}}
 @media(max-width:560px){header .brand img{width:52px!important;height:52px!important;max-width:52px!important;max-height:52px!important}}
+
+
+/* Services section contrast and spacing repair */
+.services{
+  background:#21142F!important;
+  color:#FAF8FD!important;
+  padding:88px 0 96px!important;
+}
+.services .section-head,
+.services .section-head h2,
+.services .section-head p,
+.services .section-head .eyebrow{
+  color:#FAF8FD!important;
+  opacity:1!important;
+  -webkit-text-fill-color:#FAF8FD!important;
+}
+.services .section-head{max-width:820px!important;margin:0 auto 42px 0!important}
+.services .section-head h2{
+  font-size:clamp(2.25rem,4.2vw,3.7rem)!important;
+  line-height:1.04!important;
+  letter-spacing:-.055em!important;
+  margin:18px 0!important;
+}
+.services .section-head p{max-width:700px!important;line-height:1.75!important;opacity:.88!important}
+.services .cards{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important}
+.services .cards .card{
+  background:#DCCBFA!important;
+  color:#21142F!important;
+  border:1px solid #DCCBFA!important;
+  border-radius:22px!important;
+  padding:28px!important;
+  min-width:0!important;
+}
+.services .cards .card h3,
+.services .cards .card p,
+.services .cards .card .index,
+.services .cards .card a{
+  color:#21142F!important;
+  -webkit-text-fill-color:#21142F!important;
+  opacity:1!important;
+}
+.services .cards .card .index{color:#7544C8!important;-webkit-text-fill-color:#7544C8!important}
+.services .cards .card a{font-weight:800!important;text-decoration-color:#7544C8!important}
+@media(max-width:850px){.services{padding:68px 0!important}.services .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:560px){.services{padding:54px 0!important}.services .section-head{margin-bottom:28px!important}.services .cards{grid-template-columns:1fr!important}}
