@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#102D25">
+<meta name="theme-color" content="#21142F">
 <title>Traveon Studio | Websites Built to Move Business Forward</title>
 <meta name="description" content="Traveon Studio designs and builds distinctive, high-performing websites for ambitious businesses. Strategy, web design, development and ongoing care.">
 <link rel="canonical" href="https://traveonstudio.com/">
@@ -10,7 +10,7 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="Traveon Studio"><meta property="og:title" content="Traveon Studio — Websites built to move business forward"><meta property="og:description" content="Strategy, design and development for businesses ready for a stronger digital presence."><meta property="og:url" content="https://traveonstudio.com/"><meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="/assets/traveon-studio.css">
 <style>
-:root{--ivory:#F4F5EF;--forest:#102D25;--leaf:#2F7056;--lime:#D6F36A;--muted:var(--leaf);--line:var(--leaf)}
+:root{--ivory:#FAF8FD;--forest:#21142F;--leaf:#7544C8;--lime:#DCCBFA;--muted:var(--leaf);--line:var(--leaf)}
 *{box-sizing:border-box}
 html{scroll-behavior:smooth;scroll-padding-top:100px}
 body{margin:0;background:var(--ivory)!important;color:var(--forest)!important;font:16px/1.65 Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
@@ -65,6 +65,65 @@ h1,h2,h3,h4,main h1,main h2,main h3{color:var(--forest)!important}.services h1,.
 @media(max-width:950px){.hero-grid{grid-template-columns:1fr;gap:22px}.hero{padding-top:62px}.visual{max-width:590px;width:100%;margin:auto}.cards{grid-template-columns:repeat(2,minmax(0,1fr))}.featured{grid-template-columns:1fr}.project-list{border-left:0;border-top:1px solid var(--forest);padding:12px 0 0}.process{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:700px){.wrap{width:calc(100% - 34px)}.nav{align-items:flex-start;flex-direction:column;padding:14px 0;gap:13px}.brand img{width:215px;max-height:48px}nav{justify-content:flex-start;gap:10px 16px;flex-wrap:wrap}nav a{font-size:.82rem}.announce .wrap{display:block}.announce strong{display:block;margin-top:3px}.hero{padding:46px 0 48px}.hero h1{font-size:clamp(3rem,13vw,4.5rem)}.visual{min-height:360px}.orbit{width:290px;height:290px}.browser{width:94%}.mock{padding:19px}.mock-body{padding:23px 0}.mock-body strong{font-size:clamp(2.5rem,10vw,3.6rem)}.float.one{left:0;bottom:6px}.float.two{right:0;top:5px}.trust{display:grid;grid-template-columns:1fr 1fr;gap:12px}section{padding:64px 0}.cards,.process,.pricing-grid{grid-template-columns:1fr}.card{padding:23px}.featured,.price-main,.price-side{padding:25px}.project-list{padding-top:10px}.actions .btn{width:100%}.foot{display:block}.footlinks{margin:19px 0}.footnote{margin-top:20px}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important}}
+ 
+/* 2026 purple premium homepage refresh — four-color system */
+:root{--ivory:#FAF8FD;--forest:#21142F;--leaf:#7544C8;--lime:#DCCBFA;--muted:var(--leaf);--line:var(--leaf)}
+body{background:var(--ivory)!important}
+.announce{background:var(--forest);color:var(--ivory)}
+.announce strong{color:var(--lime)}
+header{background:rgba(250,248,253,.92)!important;backdrop-filter:blur(18px);border-bottom:1px solid var(--lime)!important}
+nav a{transition:color .2s ease,transform .2s ease}
+nav a:hover{color:var(--leaf)!important}
+.btn{background:var(--forest)!important;border-color:var(--forest)!important;box-shadow:0 8px 22px rgba(33,20,47,.13)}
+.btn:hover{background:var(--leaf)!important;border-color:var(--leaf)!important}
+.btn.outline{background:transparent!important;color:var(--forest)!important;border:1px solid var(--leaf)!important;box-shadow:none}
+.btn.lime,.cta .btn{background:var(--lime)!important;border-color:var(--lime)!important;color:var(--forest)!important}
+.hero{padding:96px 0 88px;background:radial-gradient(ellipse at 82% 38%,rgba(220,203,250,.65),transparent 38%),var(--ivory)}
+.hero-grid{gap:clamp(38px,6vw,86px)}
+h1{font-size:clamp(3.6rem,6.5vw,6.8rem);line-height:.91;letter-spacing:-.09em}
+h1 em,.section-head h2 em{color:var(--leaf)}
+.lead{color:var(--forest);opacity:.82;font-size:1.12rem;max-width:570px}
+.microproof{color:var(--leaf)}
+.visual{min-height:530px}
+.orbit{border-color:var(--lime);box-shadow:0 0 0 35px var(--ivory),0 0 0 36px var(--lime);opacity:.8}
+.browser{background:var(--ivory);border-color:var(--lime);box-shadow:18px 24px 0 var(--leaf);border-radius:22px}
+.browser-top{border-color:var(--lime);color:var(--leaf)}
+.dots i{background:var(--leaf)}
+.dots i:first-child{background:var(--lime)}
+.mock-nav{border-color:var(--lime)}
+.mock-body small,.mock-body p,.mock-foot{color:var(--leaf)}
+.mock-body strong em{color:var(--leaf)}
+.mock-cta{background:var(--leaf);color:var(--ivory);border-radius:999px}
+.float{border-color:var(--lime);box-shadow:5px 6px 0 var(--lime)}
+.float.two{background:var(--forest);color:var(--lime);border-color:var(--forest)}
+.trustbar{background:var(--forest);color:var(--ivory)}
+.trust span:before{color:var(--lime)}
+section{padding:100px 0}
+.services{background:var(--forest);color:var(--ivory)}
+.services .section-head p{color:var(--ivory);opacity:.8}
+.cards{gap:20px}
+.card{border-color:var(--lime)!important;border-radius:20px;padding:30px;box-shadow:0 14px 34px rgba(33,20,47,.08),6px 7px 0 var(--lime)}
+.card:hover{box-shadow:0 18px 42px rgba(33,20,47,.13),8px 10px 0 var(--leaf)}
+.card .index,.card p,.card a{color:var(--leaf)!important}
+.featured{background:var(--lime);border-radius:30px;box-shadow:0 22px 55px rgba(33,20,47,.08)}
+.project-list{border-color:var(--leaf)}
+.project{border-color:var(--leaf)}
+.pill{border-color:var(--leaf)}
+.process .card{box-shadow:0 12px 30px rgba(33,20,47,.06)}
+.number{color:var(--leaf)}
+.price-main,.price-side{border-color:var(--lime);border-radius:24px}
+.price-main{box-shadow:8px 9px 0 var(--lime)}
+.price-side{background:var(--forest)}
+.price-side .price{color:var(--lime)}
+.faq details,.faq details:last-child{border-color:var(--lime)}
+.faq details p{color:var(--leaf)}
+.cta{background:var(--forest);border-radius:30px}
+.cta:after{background:var(--leaf);opacity:.45}
+footer{border-color:var(--lime)!important}
+:focus-visible{outline:3px solid var(--leaf)!important}
+@media(max-width:950px){.hero{padding:68px 0}.visual{min-height:470px}}
+@media(max-width:700px){.hero{padding:50px 0}.hero h1{font-size:clamp(3.15rem,13vw,4.7rem)}section{padding:70px 0}.visual{min-height:365px}.cards{gap:15px}.card{box-shadow:0 10px 25px rgba(33,20,47,.07),4px 5px 0 var(--lime)}}
+
 </style>
 </head>
 <body>
