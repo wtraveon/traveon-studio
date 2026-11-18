@@ -436,3 +436,21 @@ footer .footnote{
   .services{padding-top:42px!important;padding-bottom:60px!important}
   .services .section-head{margin-bottom:26px!important}
 }
+
+
+/* Pricing clarity and premium price panels */
+main .price{font-size:clamp(2rem,4vw,2.8rem)!important;line-height:1.05!important;font-weight:900!important;letter-spacing:-.06em!important;color:#21142F!important;margin:14px 0!important}
+main .price-unit{font-size:.95rem!important;font-weight:700!important;letter-spacing:0!important;color:#7544C8!important}
+main .grid>.card{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:8px!important}
+main .grid>.card .price{margin:4px 0 10px!important}
+main .grid>.card ul{padding-left:1.2rem!important;margin:6px 0 12px!important}
+main .grid>.card li{margin:5px 0!important}
+main .grid>.card>a:not(.btn){font-weight:800!important;margin-top:auto!important}
+.workbook-price{display:flex!important;justify-content:space-between!important;align-items:center!important;gap:24px!important;padding:28px 32px!important;margin:28px 0 16px!important;background:#DCCBFA!important;border:1px solid #DCCBFA!important;border-radius:24px!important;box-shadow:0 16px 40px rgba(33,20,47,.10)!important}
+.workbook-price .price-kicker{font-size:.75rem!important;letter-spacing:.14em!important;font-weight:900!important;color:#7544C8!important}
+.workbook-price .price{font-size:clamp(2.5rem,5vw,3.5rem)!important;margin:7px 0!important}
+.workbook-price p{margin:0!important;color:#21142F!important}
+.workbook-price .btn{white-space:nowrap!important}
+.pricing-note{max-width:850px!important;margin:0 0 28px!important}
+.workbook-features{margin-top:24px!important}
+@media(max-width:600px){.workbook-price{align-items:flex-start!important;flex-direction:column!important;padding:24px!important;gap:14px!important}.workbook-price .btn{white-space:normal!important}}
