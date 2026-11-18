@@ -426,3 +426,13 @@ footer .footnote{
 .services .section-head{margin-top:0!important}
 @media(max-width:850px){.services{padding-top:46px!important}}
 @media(max-width:560px){.services{padding-top:36px!important}}
+
+
+/* Remove the four-item trust strip and close the unnecessary top gap */
+.trustbar,.trust{display:none!important}
+.services{padding-top:58px!important;padding-bottom:88px!important}
+.services .section-head{margin-top:0!important;margin-bottom:34px!important}
+@media(max-width:760px){
+  .services{padding-top:42px!important;padding-bottom:60px!important}
+  .services .section-head{margin-bottom:26px!important}
+}
