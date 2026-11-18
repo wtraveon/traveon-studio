@@ -178,3 +178,62 @@ footer{background:#DCCBFA!important;border-top-color:#DCCBFA!important}
 footer p,footer a{color:#21142F!important}
 main .notice{background:#DCCBFA!important;color:#21142F!important}
 .skip{background:#DCCBFA!important;color:#21142F!important}
+
+
+/* Footer layout repair — consistent across every page */
+footer{
+  display:block!important;
+  margin-top:64px!important;
+  padding:54px 0 34px!important;
+  background:#FAF8FD!important;
+  border-top:2px solid #DCCBFA!important;
+  color:#21142F!important;
+}
+footer .foot{
+  display:grid!important;
+  grid-template-columns:minmax(230px,1fr) minmax(320px,1.4fr)!important;
+  align-items:start!important;
+  gap:28px 56px!important;
+}
+footer .foot>div:first-child{min-width:0}
+footer .foot .brand{display:inline-flex!important;align-items:center!important;margin-bottom:16px!important}
+footer .foot .brand img{display:block!important;width:230px!important;max-width:100%!important;height:auto!important;max-height:none!important}
+footer .foot .small,footer .foot p{color:#21142F!important;margin:8px 0!important;line-height:1.7}
+footer .footlinks{
+  display:flex!important;
+  flex-wrap:wrap!important;
+  align-items:center!important;
+  justify-content:flex-start!important;
+  gap:12px 24px!important;
+  padding-top:12px!important;
+}
+footer .footlinks a{
+  display:inline-block!important;
+  color:#7544C8!important;
+  text-decoration:none!important;
+  font-size:.94rem!important;
+  font-weight:700!important;
+  line-height:1.5!important;
+  white-space:nowrap!important;
+}
+footer .footlinks a:hover{text-decoration:underline!important;text-underline-offset:4px!important}
+footer .footer-bottom{
+  grid-column:1/-1!important;
+  display:flex!important;
+  justify-content:space-between!important;
+  align-items:center!important;
+  flex-wrap:wrap!important;
+  gap:8px 24px!important;
+  padding-top:22px!important;
+  margin-top:8px!important;
+  border-top:1px solid #DCCBFA!important;
+}
+footer .footer-bottom p{margin:0!important;font-size:.85rem!important}
+main{padding-bottom:24px!important}
+@media(max-width:760px){
+  footer{margin-top:44px!important;padding:38px 0 26px!important}
+  footer .foot{grid-template-columns:1fr!important;gap:18px!important}
+  footer .footlinks{gap:12px 18px!important;padding-top:0!important}
+  footer .footer-bottom{grid-column:auto!important;display:block!important;padding-top:18px!important}
+  footer .footer-bottom p+p{margin-top:8px!important}
+}
