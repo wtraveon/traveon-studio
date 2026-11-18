@@ -158,3 +158,23 @@ footer{background:#FAF8FD!important;border-color:#DCCBFA!important;color:#7544C8
 footer p,footer a{color:#7544C8!important}
 main .notice{background:#DCCBFA!important;color:#21142F!important}
 .skip{background:#DCCBFA!important;color:#21142F!important}
+
+
+/* Contrast repair: keep text and surfaces visually distinct */
+:root{color-scheme:light;--ts-ink:#21142F;--ts-muted:#21142F;--ts-paper:#FAF8FD;--ts-card:#DCCBFA;--ts-line:#DCCBFA;--ts-green:#7544C8;--ts-lime:#DCCBFA;--ts-dark:#21142F}
+html,body{background:#FAF8FD!important;color:#21142F!important}
+body,main,main p,main li,main label,main small,.muted,footer,footer p{color:#21142F!important}
+h1,h2,h3,h4,header nav a,header .brand{color:#21142F!important}
+main .lead,main .eyebrow,main a:not(.btn),.eyebrow{color:#7544C8!important}
+main .card,article,.resource-card,main section.card{background:#DCCBFA!important;color:#21142F!important;border-color:#DCCBFA!important}
+main .card p,main .card li,main .card h2,main .card h3{color:#21142F!important}
+header{background:rgba(250,248,253,.96)!important;border-bottom:1px solid #DCCBFA!important}
+.btn,button.btn{background:#21142F!important;border-color:#21142F!important;color:#FAF8FD!important}
+.btn:hover,button.btn:hover{background:#7544C8!important;border-color:#7544C8!important;color:#FAF8FD!important}
+.btn.light,.btn.outline{background:#FAF8FD!important;color:#21142F!important;border-color:#7544C8!important}
+input,select,textarea,.field input,.field select,.field textarea{background:#FAF8FD!important;color:#21142F!important;border-color:#7544C8!important}
+input::placeholder,textarea::placeholder{color:#21142F!important;opacity:.72}
+footer{background:#DCCBFA!important;border-top-color:#DCCBFA!important}
+footer p,footer a{color:#21142F!important}
+main .notice{background:#DCCBFA!important;color:#21142F!important}
+.skip{background:#DCCBFA!important;color:#21142F!important}
