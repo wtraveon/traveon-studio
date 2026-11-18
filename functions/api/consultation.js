@@ -53,10 +53,12 @@ export async function onRequestPost({ request, env }) {
     const website = get("website");
     const interest = get("interest");
     const summary = get("project_summary");
-    if (!name || !business || !businessType || !interest || !summary || (!email && !phone)) {
+    const country = get("country");
+    const timeZone = get("time_zone");
+    if (!name || !business || !businessType || !interest || !summary || !country || (!email && !phone)) {
       return Response.json({ error: "Complete the required fields and provide an email address or phone number." }, { status: 400, headers });
     }
-    if (name.length > 120 || business.length > 160 || email.length > 254 || phone.length > 60 || businessType.length > 120 || website.length > 500 || interest.length > 120 || summary.length > 5000) {
+    if (name.length > 120 || business.length > 160 || email.length > 254 || phone.length > 60 || businessType.length > 120 || website.length > 500 || interest.length > 120 || summary.length > 5000 || country.length > 120 || timeZone.length > 100) {
       return Response.json({ error: "One or more fields exceed the allowed length." }, { status: 400, headers });
     }
     if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -86,6 +88,9 @@ export async function onRequestPost({ request, env }) {
       "INSERT INTO consultation_requests (name, business_name, email, phone, business_type, website, interest, project_summary, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, datetime('now'))"
     ).bind(name, business, email, phone, businessType, website, interest, summary).run();
     const requestId = result.meta?.last_row_id;
+    // Store international routing details separately to avoid changing the existing requests table.
+    await env.DB.prepare("CREATE TABLE IF NOT EXISTS consultation_request_context (request_id INTEGER PRIMARY KEY, country TEXT NOT NULL, time_zone TEXT, FOREIGN KEY(request_id) REFERENCES consultation_requests(id))").run();
+    await env.DB.prepare("INSERT OR REPLACE INTO consultation_request_context (request_id, country, time_zone) VALUES (?, ?, ?)").bind(requestId, country, timeZone || null).run();
     const safe = (s) => s.replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
     let emailResult;
     try {
@@ -98,7 +103,7 @@ export async function onRequestPost({ request, env }) {
         to: env.NOTIFICATION_EMAIL,
         subject: "New Traveon Studio consultation request" + (requestId ? " #" + requestId : ""),
         text: "New consultation request\nName: " + name + "\nBusiness: " + business + "\nEmail: " + (email || "Not provided") + "\nPhone: " + (phone || "Not provided") + "\nBusiness type: " + businessType + "\nWebsite: " + (website || "Not provided") + "\nInterest: " + interest + "\nProject summary: " + summary,
-        html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\n/g, "<br>") + "</p>"
+        html: "<h2>New consultation request</h2><p><b>Name:</b> " + safe(name) + "</p><p><b>Business:</b> " + safe(business) + "</p><p><b>Email:</b> " + safe(email || "Not provided") + "</p><p><b>Phone:</b> " + safe(phone || "Not provided") + "</p><p><b>Country:</b> " + safe(country) + "</p><p><b>Time zone:</b> " + safe(timeZone || "Not provided") + "</p><p><b>Business type:</b> " + safe(businessType) + "</p><p><b>Website:</b> " + safe(website || "Not provided") + "</p><p><b>Interest:</b> " + safe(interest) + "</p><p><b>Project summary:</b><br>" + safe(summary).replace(/\n/g, "<br>") + "</p>"
       })
       });
       emailResult = emailResponse.ok ? await emailResponse.json().catch(() => ({ success: false })) : { success: false };
