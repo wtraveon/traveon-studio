@@ -1,10 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 112" role="img" aria-labelledby="title desc">
-<title id="title">Traveon Studio</title><desc id="desc">A modern geometric T mark with a rising lime accent, alongside the Traveon Studio wordmark.</desc>
-<rect x="3" y="5" width="102" height="102" rx="27" fill="#17243A"/>
-<path d="M27 32H81V44H61V80H47V44H27Z" fill="#EEF2FA"/>
-<path d="M67 20L88 20L88 41Z" fill="#E8B66B"/>
-<path d="M69 51L89 71L89 88L69 68Z" fill="#315CE8"/>
-<text x="127" y="57" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="800" letter-spacing="-1.7" fill="#EEF2FA">TRAVEON</text>
-<text x="130" y="88" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" letter-spacing="7" fill="#8DA7FF">STUDIO</text>
-<path d="M267 79H338" stroke="#E8B66B" stroke-width="5" stroke-linecap="round"/>
+<title id="title">Traveon Studio</title><desc id="desc">A geometric T mark with a lavender accent, alongside the Traveon Studio wordmark.</desc>
+<rect x="3" y="5" width="102" height="102" rx="27" fill="#21142F"/>
+<path d="M27 32H81V44H61V80H47V44H27Z" fill="#FAF8FD"/>
+<path d="M67 20L88 20L88 41Z" fill="#DCCBFA"/>
+<path d="M69 51L89 71L89 88L69 68Z" fill="#7544C8"/>
+<text x="127" y="57" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="800" letter-spacing="-1.7" fill="#21142F">TRAVEON</text>
+<text x="130" y="88" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" letter-spacing="7" fill="#7544C8">STUDIO</text>
+<path d="M267 79H338" stroke="#DCCBFA" stroke-width="5" stroke-linecap="round"/>
 </svg>
