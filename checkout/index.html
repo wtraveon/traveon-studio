@@ -35,6 +35,8 @@
  const status=document.getElementById("payment-status");
  const button=document.querySelector("paypal-button");
  const selectedProduct=()=>document.querySelector('input[name="product"]:checked')?.value;
+ const requestedProduct=new URLSearchParams(location.search).get("item");
+ if(requestedProduct==="business-workbook")document.querySelector('input[name="product"][value="business-workbook"]').checked=true;
  const show=(message)=>{status.textContent=message;};
  async function post(url,payload){
   const response=await fetch(url,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(payload)});
