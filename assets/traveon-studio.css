@@ -116,3 +116,25 @@ header nav a:hover{color:#315CE8!important}
 .btn.light,.btn.outline{color:#101C32!important;border-color:#C5CDDA!important}
 input:focus,select:focus,textarea:focus{outline-color:#DCE5FF!important}
 :focus-visible{outline-color:#315CE8!important}
+
+
+/* Global dark theme — Midnight / Cobalt / Champagne */
+:root{color-scheme:dark;--ts-ink:#EEF2FA;--ts-muted:#A5B1C4;--ts-paper:#0B1220;--ts-card:#141F30;--ts-line:#26354A;--ts-green:#7192FF;--ts-lime:#E8B66B;--ts-dark:#101C32}
+html,body{background:#0B1220!important;color:#EEF2FA!important}
+body{color-scheme:dark}
+header{background:rgba(11,18,32,.92)!important;border-bottom-color:#26354A!important}
+header nav a,header .brand{color:#EEF2FA!important}
+main,main p,main li,main label,main small,.muted{color:#A5B1C4}
+h1,h2,h3,h4,main h1,main h2,main h3{color:#EEF2FA!important}
+.card,article,.resource-card,main .card,main section.card{background:#141F30!important;color:#EEF2FA!important;border-color:#26354A!important;box-shadow:0 18px 50px #0005}
+.eyebrow,main a:not(.btn),footer a{color:#8DA7FF!important}
+.btn,button.btn{background:#315CE8!important;border-color:#315CE8!important;color:#fff!important}
+.btn:hover,button.btn:hover{background:#2548B8!important;border-color:#2548B8!important}
+.btn.light,.btn.outline{background:transparent!important;color:#EEF2FA!important;border-color:#52627A!important}
+input,select,textarea,.field input,.field select,.field textarea{background:#101A2A!important;color:#EEF2FA!important;border-color:#34445B!important}
+input::placeholder,textarea::placeholder{color:#8290A6}
+input:focus,select:focus,textarea:focus{outline-color:#315CE8!important}
+footer{background:#080E19!important;border-top-color:#26354A!important;color:#A5B1C4!important}
+footer p,footer a{color:#A5B1C4!important}
+main .notice{background:#192B47!important;color:#D8E2F5!important}
+.skip{background:#141F30!important;color:#fff!important}
