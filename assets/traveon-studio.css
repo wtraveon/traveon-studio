@@ -304,3 +304,61 @@ header .brand img{display:block!important;width:62px!important;height:62px!impor
 .services .cards .card a{font-weight:800!important;text-decoration-color:#7544C8!important}
 @media(max-width:850px){.services{padding:68px 0!important}.services .cards{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:560px){.services{padding:54px 0!important}.services .section-head{margin-bottom:28px!important}.services .cards{grid-template-columns:1fr!important}}
+
+
+/* Homepage final CTA: restore visible headline and supporting copy */
+.cta{
+  position:relative!important;
+  isolation:isolate!important;
+  overflow:hidden!important;
+  min-height:360px!important;
+  padding:clamp(36px,6vw,72px)!important;
+  display:flex!important;
+  flex-direction:column!important;
+  align-items:flex-start!important;
+  justify-content:center!important;
+  gap:18px!important;
+  background:#21142F!important;
+  color:#FAF8FD!important;
+}
+.cta .eyebrow{
+  display:block!important;
+  color:#DCCBFA!important;
+  -webkit-text-fill-color:#DCCBFA!important;
+  opacity:1!important;
+  margin:0 0 2px!important;
+}
+.cta h2,.cta h2 *,
+main .cta h2{
+  display:block!important;
+  max-width:780px!important;
+  margin:0!important;
+  color:#FAF8FD!important;
+  -webkit-text-fill-color:#FAF8FD!important;
+  opacity:1!important;
+  font-size:clamp(2.2rem,4.5vw,4.2rem)!important;
+  line-height:1.04!important;
+  letter-spacing:-.055em!important;
+  text-shadow:none!important;
+}
+.cta p,.cta p *{
+  display:block!important;
+  max-width:680px!important;
+  margin:0 0 8px!important;
+  color:#DCCBFA!important;
+  -webkit-text-fill-color:#DCCBFA!important;
+  opacity:1!important;
+  font-size:1.05rem!important;
+  line-height:1.75!important;
+}
+.cta .btn{
+  display:inline-flex!important;
+  align-self:flex-start!important;
+  margin-top:4px!important;
+  background:#DCCBFA!important;
+  border-color:#DCCBFA!important;
+  color:#21142F!important;
+  -webkit-text-fill-color:#21142F!important;
+}
+.cta .btn:hover{background:#FAF8FD!important;border-color:#FAF8FD!important}
+@media(max-width:640px){.cta{min-height:0!important;padding:32px 24px!important;gap:15px!important}.cta h2{font-size:clamp(2rem,9vw,3rem)!important}}
