@@ -24,7 +24,7 @@
 <label class="checkout-choice"><input type="radio" name="product" value="website-deposit" checked><span><strong>Website package — project deposit</strong><span class="muted-small">50% deposit to begin the $600 website package. The remaining $300 is due after final approval and before launch.</span></span><span class="checkout-price">$300 USD</span></label>
 <label class="checkout-choice"><input type="radio" name="product" value="business-workbook"><span><strong>Business &amp; Productivity Workbook</strong><span class="muted-small">One-time purchase.</span></span><span class="checkout-price">$200 USD</span></label>
 <div class="checkout-note"><strong>Website care — $99/month</strong><p class="muted-small">Monthly care is a recurring service. Subscription checkout will be added after the PayPal subscription plan is configured. <a href="/contact/">Contact Traveon Studio</a> to arrange website care.</p></div>
-<div class="paypal-area"><paypal-button hidden></paypal-button></div>
+<div class="paypal-area"><paypal-button type="pay" hidden></paypal-button></div>
 <p id="payment-status" class="status muted" role="status" aria-live="polite">Connecting to PayPal…</p>
 <p class="muted-small">Payments are processed by PayPal. Traveon Studio never receives or stores your PayPal password or card number. If you need help, <a href="/contact/">contact us</a>.</p>
 </section>
@@ -46,7 +46,7 @@
  }
  async function createOrder(){
   const result=await post("/api/paypal/create-order",{productId:selectedProduct()});
-  return {orderId:result.id};
+  return result.id;
  }
  async function captureOrder(orderId){
   return post("/api/paypal/capture-order",{orderId});
